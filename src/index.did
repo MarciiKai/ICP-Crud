@@ -1,22 +1,21 @@
-type Message = record {
-  id : text;
-  attachmentURL : text;
-  title : text;
-  body : text;
-  createdAt : nat64;
-  updatedAt : opt nat64;
+type Prompt = record {
+  id: text;
+  content: text;
+  createdAt: nat64;
+  updatedAt: opt nat64;
 };
-type MessagePayload = record {
-  attachmentURL : text;
-  title : text;
-  body : text;
+
+type PromptPayload = record {
+  content: text;
 };
-type _AzleResult = variant { Ok : Message; Err : text };
-type _AzleResult_1 = variant { Ok : vec Message; Err : text };
+
+type _ImaginationResult = variant { Ok: Prompt; Err: text };
+type _ImaginationResultList = variant { Ok: vec Prompt; Err: text };
+
 service : () -> {
-  addMessage : (MessagePayload) -> (_AzleResult);
-  deleteMessage : (text) -> (_AzleResult);
-  getMessage : (text) -> (_AzleResult) query;
-  getMessages : () -> (_AzleResult_1) query;
-  updateMessage : (text, MessagePayload) -> (_AzleResult);
+  addPrompt : (PromptPayload) -> (_ImaginationResult);
+  deletePrompt : (text) -> (_ImaginationResult);
+  getPrompt : (text) -> (_ImaginationResult) query;
+  getPrompts : () -> (_ImaginationResultList) query;
+  updatePrompt : (text, PromptPayload) -> (_ImaginationResult);
 }
